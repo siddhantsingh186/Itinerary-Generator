@@ -33,6 +33,7 @@ sentence_tokens.each do |sentence|
     entities << {text: entity.text, label: entity.label}
   end
 
+  
   # puts entities
 
   sentence_response = {}
