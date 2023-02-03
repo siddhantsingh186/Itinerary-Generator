@@ -2,16 +2,33 @@ require 'ruby-spacy'
 
 require 'json'
 
-nlp = Spacy::Language.new('en_core_web_sm')
+require 'engtagger'
 
+require 'csv'
+
+worldcities =[]
+
+citiescsv = CSV.read('C:\Users\SID\Documents\itinerary_generator\cities.csv', headers: true)
+
+tgr = EngTagger.new
+
+nlp = Spacy::Language.new('en_core_web_sm')
 
 file = File.open("itinerary.txt", "r")
 
 input_text = file.read
 
-puts input_text
-
 doc = nlp.read(input_text)
+
+def concatenate_nnp_words(text)
+  tagger = EngTagger.new
+  tagged_text = tagger.add_tags(text)
+  # puts tagged_text
+  # extract all proper nouns from the tagged text
+  # proper_nouns = tagger.get_proper_nouns(tagged_text)
+  # proper_nouns
+  tagged_text
+end
 
   # Get the sentence tokens from the response
 sentence_tokens = []
@@ -22,6 +39,9 @@ end
 # sentence_tokens.each do |tokens|
 #   puts tokens + "\n"
 # end
+sentence_tokens.each do |sent|
+  concatenate_nnp_words(sent)
+end
 
 response = []
 
